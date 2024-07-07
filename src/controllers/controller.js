@@ -2,7 +2,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const users=require("../modules/usermodel");
-const config=require("../config/config");
+const config=require("../../config/config");
 
 exports.register =(req,res) => {
 const {username,password}=req.body

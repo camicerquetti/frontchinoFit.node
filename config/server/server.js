@@ -1,0 +1,42 @@
+const express = require("express");
+const app = express();
+const routes = require('../../src/routes/routes'); // Importa tus rutas de autenticación
+const config = require('../config')
+const cors = require('cors')
+
+app.use(express.json());
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.static('public'));
+app.set('view engine','ejs')
+
+app.use('/', (req, res)=>{
+    res.render('index')
+})
+app.use('*', (req,res)=>{
+    res.render('404')
+})
+
+app.use('/api/v1', routes)
+
+// Rutas principales de la aplicación
+//app.use("/auth", authroutes);
+
+const PORT = config.port || 3001; //Variable de entorno || 3000
+        
+
+const server = ()=>{
+    try {
+        app.listen(PORT, () => {
+        console.log()
+        console.log(`Servidor Node.js ejecutándose en http://localhost:${PORT}`.bold.bgBrightGreen);
+});
+        
+    } catch (error) {
+        throw new Error('No se pudo conectar al servidor '.bold.bgBrightRed)
+    }
+}
+
+module.exports = server;
+
