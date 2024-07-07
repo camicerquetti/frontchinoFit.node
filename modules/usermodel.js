@@ -1,3 +1,3 @@
 const users= [];
 
-modules.export=users;
+module.exports = users;
