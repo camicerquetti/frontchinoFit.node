@@ -28,5 +28,3 @@ res.status(200).send({auth:true,token})
 
 
 
-//habilita el token
-
