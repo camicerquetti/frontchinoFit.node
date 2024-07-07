@@ -18,7 +18,11 @@ exports.login=(req,res)=> {
 }
 //arrancamos con verificaciones
 if(!user) return res.status(404).send(" user not found")
+const passwordInvalid=bcrypt.compareSync(password,user.passwrd)
+if(!password) return res.status(404).send({auth:false,token:null})
+    const toke=jwt.sign({user:user.id},config.secretkey,{expiresIn:tokenExpiresIn})
 
+res.status(200).send({auth:true,token})
 }
 
 
