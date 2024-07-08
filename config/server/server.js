@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
-const routes = require('../../src/routes/routes'); // Importa tus rutas de autenticación
 const config = require('../config')
-const cors = require('cors')
+const router= require('../../src/routes/routes'); // Importa tus rutas de autenticación
+const cors = require('cors');
 
 app.use(express.json());
 app.use(cors());
@@ -18,7 +18,7 @@ app.use('*', (req,res)=>{
     res.render('404')
 })
 
-app.use('/api/v1', routes)
+app.use('/api/v1', router)
 
 // Rutas principales de la aplicación
 //app.use("/auth", authroutes);
