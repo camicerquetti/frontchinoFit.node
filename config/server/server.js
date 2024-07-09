@@ -25,7 +25,7 @@ app.use('/api/v1', router)
 // Rutas principales de la aplicación
 //app.use("/auth", authroutes);
 
-const PORT = config.port || 3002; //Variable de entorno || 3000
+const PORT = config.port || 3002 //Variable de entorno || 3000
         
 
 const server = ()=>{

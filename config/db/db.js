@@ -2,7 +2,6 @@ const mysql = require('mysql2');
 const config = require('../config');
 const colors = require('colors')
 
-
 // Crea una conexión a la base de datos
 
 const  connection = async()=>{
