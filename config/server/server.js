@@ -3,7 +3,7 @@ const app = express();
 const config = require('../config')
 const router= require('../../src/routes/routes'); // Importa tus rutas de autenticación
 const cors = require('cors')
-
+const path = require('path');
 
 app.use(express.json());
 app.use(cors());
