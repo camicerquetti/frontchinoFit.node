@@ -6,10 +6,5 @@ const router = express.Router();
 router.post('/registro', controllers.register)
 router.post('/login', controllers.login)
 
-//rutas de 
+module.exports=router;
 
-<<<<<<< HEAD
-module.exports = router;
-=======
-module.exports = router;
->>>>>>> 711cb3355ddcfff4aeeb49d4c8f7fc90364017aa
