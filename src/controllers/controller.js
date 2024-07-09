@@ -1,29 +1,23 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const connectToDatabase = require('../../config/db/db'); 
-const { validationResult } = require('express-validator');
-const users = []; // Simulación de almacenamiento de usuarios en memoria
-
-// Función para validar y sanitizar el email
-const validateEmail = (value) => {
-    if (!value) {
-        throw new Error('El correo electrónico es requerido');
-    }
-    return true;
-};
+const db = require('../../config/db/db'); 
+const validar = require('validator')
+//const users = []; // Simulación de almacenamiento de usuarios en memoria
 
 exports.register = async (req, res) => {
     const { nombre, email, contraseña, confirmar_contraseña } = req.body;
-
-    // Validación de campos usando express-validator
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+    
+    //validaciones
+    if(validar.isEmpty(nombre, email, contraseña, confirmar_contraseña)){
+        return res.status(400).json({msg: 'Todos los campos son obligatorios'});
     }
-
     // Validar si las contraseñas coinciden
     if (contraseña !== confirmar_contraseña) {
         return res.status(400).json({ message: 'Las contraseñas no coinciden' });
+    }
+    // Validar si es email 
+    if (!validar.isEmail(email)){
+        return res.status(400).json({ message: 'El email no es válido' });
     }
 
     // Encriptar la contraseña
@@ -31,23 +25,30 @@ exports.register = async (req, res) => {
 
     // Crear un nuevo usuario (en una aplicación real, aquí guardarías el usuario en la base de datos)
     const newUser = { id: users.length + 1, nombre, email, contraseña: hashedPassword };
-    users.push(newUser);
-
-    try {
-        // Guardar usuario en la base de datos (aquí deberías usar tu función de conexión a la base de datos)
-        // Ajusta la consulta según tu estructura de base de datos y método de conexión
-        await connectToDatabase.query('INSERT INTO usuarios (nombre, email, contraseña) VALUES (?, ?, ?)', [nombre, email, hashedPassword]);
-
+    
+    db.query('INSERT INTO registro_usuario (ID, nombre, email, contraseña) VALUES (id, nombre, email, hashedPassword)', 
+    
+        (err, results) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).json({ message: 'Error al crear el usuario' });
+                }
+                return res.status(201).json({ message: 'Usuario creado correctamente' });
+                });
+            
         // Generar el token de autenticación
+    try {
         const token = jwt.sign({ id: newUser.id }, config.secretKey, { expiresIn: '1h' });
 
         // Enviar respuesta con el token generado
         res.status(201).json({ auth: true, token });
     } catch (error) {
+        
         console.error('Error al registrar el usuario:', error);
         res.status(500).json({ auth: false, message: 'Error interno al registrar el usuario' });
     }
-};
+        
+    }
 
 exports.login = async (req, res) => {
     const { email, contraseña } = req.body;
