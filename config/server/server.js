@@ -13,10 +13,13 @@ app.use(express.static('public'));
 app.set('view engine','ejs')
 
 
-app.use('/', (req, res)=>{
+app.use('/', function(req, res){
     res.render('index')
 })
-app.use('*', (req,res)=>{
+app.use('/login', function(req, res){
+    res.render('login')
+})
+app.use('*', function(req,res){
     res.render('404')
 })
 
