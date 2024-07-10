@@ -4,4 +4,4 @@ const connection = require('./config/db/db.js');
 
 
 server();
-connection();
+//connection();
