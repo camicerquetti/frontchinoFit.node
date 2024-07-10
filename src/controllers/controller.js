@@ -1,25 +1,23 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const connectToDatabase = require('../../config/db/db'); 
-const { validationResult } = require('express-validator');
-const users = []; // Simulación de almacenamiento de usuarios en memoria
-
-// Función para validar y sanitizar el email
-const validateEmail = (value) => {
-    if (!value) {
-        throw new Error('El correo electrónico es requerido');
-    }
-    return true;
-};
+const  validar  = require('validator');
+//const users = []; // Simulación de almacenamiento de usuarios en memoria
 
 exports.register = async (req, res) => {
     const { nombre, email, contraseña, confirmar_contraseña } = req.body;
 
     // Validación de campos usando express-validator
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+   // const errors = validationResult(req);
+    if (validar.isEmpty()) {
+        return res.status(400).json({ messager:"Todos los campos son obligatorios" });
     }
+// Función para validar y sanitizar el email
+if(!validar.isEmpty(email)){
+    return res.status(400).json( {massager:'El correo electrónico es requerido'});
+
+
+};
 
     // Validar si las contraseñas coinciden
     if (contraseña !== confirmar_contraseña) {
@@ -31,12 +29,22 @@ exports.register = async (req, res) => {
 
     // Crear un nuevo usuario (en una aplicación real, aquí guardarías el usuario en la base de datos)
     const newUser = { id: users.length + 1, nombre, email, contraseña: hashedPassword };
-    users.push(newUser);
+   db.query("INSER INTO registro_usuarios.registro_usuarios(ID,nombre,email,contraseña) values(id,nombre,email,hashedpassword)");
+
+(err,results)=> {
+    if(err){
+        console.log(err);
+    return res.status(500).json({massager:"error al crearel usuario"});
+}  
+    
+return res.status(201).json({massager:"usuario creado correctamente"});
+    };
 
     try {
+   
         // Guardar usuario en la base de datos (aquí deberías usar tu función de conexión a la base de datos)
         // Ajusta la consulta según tu estructura de base de datos y método de conexión
-        await connectToDatabase.query('INSERT INTO usuarios (nombre, email, contraseña) VALUES (?, ?, ?)', [nombre, email, hashedPassword]);
+
 
         // Generar el token de autenticación
         const token = jwt.sign({ id: newUser.id }, config.secretKey, { expiresIn: '1h' });
