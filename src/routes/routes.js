@@ -22,4 +22,7 @@ router.post('/auth/login', [
     body('contraseña').notEmpty().withMessage('La contraseña es requerida')
 ], controllers.login);
 
+router.get
+
+
 module.exports = router;

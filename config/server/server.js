@@ -26,6 +26,7 @@ app.get('*', (req,res)=>{
     res.render('404')
 })
 
+app.use
 app.use('/api/v1', router)
 
 // Rutas principales de la aplicación
