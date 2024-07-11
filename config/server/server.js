@@ -13,10 +13,16 @@ app.use(express.static('public'));
 app.set('view engine','ejs')
 
 
-app.use('/', (req, res)=>{
+app.get('/', (req, res)=>{
     res.render('index')
 })
-app.use('*', (req,res)=>{
+app.get('/registrate', (req,res)=>{
+    res.render('registrate')
+})
+app.get('/usuario', (req,res)=>{
+    res.render('usuario')
+    })
+app.get('*', (req,res)=>{
     res.render('404')
 })
 
