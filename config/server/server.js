@@ -3,7 +3,6 @@ const app = express();
 const config = require('../config')
 const router= require('../../src/routes/routes'); // Importa tus rutas de autenticación
 const cors = require('cors')
-const path = require('path');
 
 app.use(express.json());
 app.use(cors());
@@ -22,11 +21,11 @@ app.get('/registrate', (req,res)=>{
 app.get('/usuario', (req,res)=>{
     res.render('usuario')
     })
+
 app.get('*', (req,res)=>{
     res.render('404')
 })
 
-app.use
 app.use('/api/v1', router)
 
 // Rutas principales de la aplicación

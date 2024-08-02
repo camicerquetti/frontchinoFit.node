@@ -4,7 +4,8 @@ const router = express.Router();
 const { body } = require('express-validator');
 
 // Ruta para registrar usuarios
-router.post('/auth/register', [
+router.get('/pruebas', controllers.pruebas)
+router.post('/auth/register', /*[
     body('nombre').notEmpty().withMessage('El nombre es requerido'),
     body('email').notEmpty().withMessage('El correo electrónico es requerido').isEmail().withMessage('Ingrese un correo electrónico válido'),
     body('contraseña').isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres'),
@@ -14,15 +15,12 @@ router.post('/auth/register', [
         }
         return true;
     })
-], controllers.register);
+],*/ controllers.register);
 
 // Ruta para iniciar sesión de usuarios
 router.post('/auth/login', [
     body('email').notEmpty().withMessage('El correo electrónico es requerido').isEmail().withMessage('Ingrese un correo electrónico válido'),
     body('contraseña').notEmpty().withMessage('La contraseña es requerida')
 ], controllers.login);
-
-router.get
-
 
 module.exports = router;

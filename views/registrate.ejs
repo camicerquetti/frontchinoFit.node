@@ -52,7 +52,7 @@
                         <h2 class="text-center">Registro de Usuario</h2>
                     </div>
                     <div class="card-body" style="background-color: blueviolet;">
-                        <form  id="loginForm" action="/auth/register" method="post">
+                        <form  id="loginForm" action="api/v1/auth/register" method="post">
                             <div class="form-group">
                                 <label for="nombre">Nombre:</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre" required>
@@ -62,13 +62,13 @@
                                 <input type="email" class="form-control" id="email" name="email" required>
                             </div>
                             <div class="form-group">
-                                <label for="contrasena">contraseña:</label>
-                                <input type="password" class="form-control" id="contraseña" name="contraseña" required>
+                                <label for="password">contraseña:</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
                             </div>
                             <div class="form-group">
-                                <label for="confirmar_contraseña">confirmar_contraseña:</label>
-                                <input type="password" class="form-control" id="confirmar_contraseña"
-                                    name="confirmar_contraseña" required>
+                                <label for="confirmar">confirmar_contraseña:</label>
+                                <input type="password" class="form-control" id="confirmar"
+                                    name="confirmar" required>
                             </div>
                             <div class="text-center" style="padding:5px;">
                                 <button type="submit" class="btn btn-warning btn-block">Registrarse</button>
