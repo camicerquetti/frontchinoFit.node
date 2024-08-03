@@ -10,10 +10,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('view engine','ejs')
 
-
 const rutas = require('../../src/routes/users')
-app.use('/api', rutas)
 
+app.use('/api', rutas)
 
 app.get('/', (req, res)=>{
     res.render('pages/index')
@@ -34,7 +33,6 @@ app.get('*', (req,res)=>{
 
 const PORT = config.PORT || 4002 //Variable de entorno || 3000
         
-
 const server = ()=>{
     try {
         app.listen(PORT, () => {
