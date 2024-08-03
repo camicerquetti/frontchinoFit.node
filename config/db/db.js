@@ -1,20 +1,17 @@
-const mysql = require('mysql2');
-const config = require('../config');
+const mongoose = require('mongoose')
+const config = require('../config')
+const DB_URI = config.DB_URI;
 const colors = require('colors')
-
-// Crea una conexión a la base de datos
-
-const  connection = async()=>{
-  let dbConfig = config.mysql
-  try {
-      await mysql.createConnection(dbConfig);
-      console.log()
-      console.log('Conexión establecida con base de datos'.bold.bgBrightGreen)
-  } catch (error) {
-      throw new Error('No se pudo establecer conexión con base de datos '.bold.bgBrightRed)
-  }
+const dbConnect = async()=>{
+    try {
+        await mongoose.connect(DB_URI)
+        console.log();
+        console.log('**** Conectado a base de datos ****'.bold.bgGreen)
+    } catch (error) {
+        console.log();
+        console.log(`No se pudo conectar a la base de datos: ${error} `.bold.bgRed);
+        
+    }
 }
 
-module.exports = connection;
-
-
+module.exports = dbConnect;

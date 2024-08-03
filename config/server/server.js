@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
-const config = require('../config')
-const router= require('../../src/routes/routes'); // Importa tus rutas de autenticación
+const config = require('../config') // Importa tus rutas de autenticación
 const cors = require('cors')
 
 app.use(express.json());
@@ -12,26 +11,28 @@ app.use(express.static('public'));
 app.set('view engine','ejs')
 
 
+const rutas = require('../../src/routes/users')
+app.use('/api', rutas)
+
+
 app.get('/', (req, res)=>{
-    res.render('index')
+    res.render('pages/index')
 })
 app.get('/registrate', (req,res)=>{
-    res.render('registrate')
+    res.render('pages/registrate')
 })
 app.get('/usuario', (req,res)=>{
-    res.render('usuario')
+    res.render('pages/usuario')
     })
 
 app.get('*', (req,res)=>{
-    res.render('404')
+    res.render('pages/404')
 })
-
-app.use('/api/v1', router)
 
 // Rutas principales de la aplicación
 //app.use("/auth", authroutes);
 
-const PORT = config.port || 3002 //Variable de entorno || 3000
+const PORT = config.PORT || 4002 //Variable de entorno || 3000
         
 
 const server = ()=>{

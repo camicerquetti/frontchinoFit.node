@@ -1,14 +1,8 @@
 require('dotenv').config()
 
 module.exports = {
-    secretKey: process.env.SECRET_KEY,
-    tokenExpiresIn: process.env.EXPIRES,
-    port: process.env.PORT,
-    mysql:{
-        host: process.env.HOST || 'localhost',
-        user: process.env.USER || 'root',
-        password: process.env.PASSWORD || '',
-        database: process.env.DATABASE
-      }
-      
-    }
+  PORT:process.env.PORT || 3000,
+  DB_URI:process.env.DB_URI,
+  JWT_SECRET:process.env.JWT_SECRET,
+  JWT_EXPIRE:process.env.JWT_EXPIRE,
+}
